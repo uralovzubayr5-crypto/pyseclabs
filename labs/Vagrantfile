@@ -1,0 +1,15 @@
+# PySecLabs — intentionally vulnerable training VM.
+# NEVER expose this to a public network. vagrant up / vagrant destroy only.
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.hostname = "pyseclabs"
+  config.vm.network "private_network", ip: "192.168.56.10"
+  config.vm.boot_timeout = 900
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  config.vm.provision "shell", path: "bootstrap.sh"
+end
